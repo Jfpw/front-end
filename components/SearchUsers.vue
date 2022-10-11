@@ -4,11 +4,11 @@
         <form @submit.prevent="localizar(nome_localizar)">
             <div class="row">
                 <div class="col-md-8">
-                    <input type="text" v-model="nome_localizar" id="nomeLocalizar" class="form-control" placeholder="Nome *" pattern="^[A-Za-z ]+" required autofocus>
+                  <input type="text" v-model="nome_localizar" id="nomeLocalizar" class="form-control" placeholder="Nome *" pattern="^[A-Za-z ]+" required autofocus>
                     <br>
                 </div>
                 <div class="col-md-4">
-                    <button class="btn btn-primary btn-block" type="submit">Localizar</button>
+                  <button class="btn btn-primary btn-block" type="submit">Localizar</button>
                 </div>
             </div>
         </form>

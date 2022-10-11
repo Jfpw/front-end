@@ -2,7 +2,13 @@
     <div>
         <h4>Reserva de Recursos</h4>
         <form @submit.prevent="localizar(nome_localizar)">
+          <span><b>Professor:</b></span>
           <div class="row">
+              <div class="col-md-8">
+                <select class="form-control">
+                  <option v-for="(teacher, index) in res_user.teachers" v-bind:key="index">{{teacher.name}}</option>
+                </select>
+              </div>
               <div class="col-md-8">
                   <input type="text" id="nomeLocalizar" v-model="nome_localizar" class="form-control" placeholder="Nome Recurso" pattern="^[A-Za-z ]+" required autofocus>
               </div>
@@ -14,11 +20,31 @@
       <span><b>Disponíveis:</b></span>
       <div style="overflow: scroll; height: 140px; background-color: #f1f1f1;">
       <table class="table table-sm" cellspacing="0" cellpadding="0" style="text-align: center;">
-        <tbody v-for="(res, i) in res_localizar" :key="res.id" v-if="res_localizar">
-          <button type="button" class="btn btn-link btn-block"><p style="text-align: left;" @click="selecionar(res)">ID: {{i+1}} | Nome: {{res.nome}} | Quantidade Disponível: {{res.quantidade}}</p></button>
+        <tbody v-for="(res, i) in res_localizar.datashows" :key="res.id" v-if="res_localizar">
+          <button type="button" class="btn btn-link btn-block"><p style="text-align: left;" @click="selecionar(res)">ID: {{i+1}} | Nome: DataShow | Patrimonio: {{res.identify}} | Full: <input type="checkbox"/></p></button>
         </tbody>
       </table>
       </div>
+      <div><span><b>Dia da Semana:</b></span></div>
+      <div class="col-md-8">
+        <select class="form-control">
+          <option>Segunda-Feira</option>
+          <option>Terca-Feira</option>
+          <option>Quarta-Feira</option>
+          <option>Quinta-Feira</option>
+          <option>Sexta-Feira</option>
+          <option>Sabado</option>
+        </select>
+      </div>
+
+       <div><span><b>Horario:</b></span></div>
+      <div class="col-md-8">
+        <select class="form-control">
+          <option>Primeiro</option>
+          <option>Segundo</option>
+        </select>
+      </div>
+
       <div class="row"  v-if="obj_selecionado != '**Selecione um Item**'">
           <div class="col-md-4">
             <span><b>Data de Locação:</b></span>
@@ -42,6 +68,7 @@
 
 <script>
 import Resource from '../services/Resources.js'
+import User from '../services/Users.js'
 import Datepicker from 'vuejs-datepicker'
 import {ptBR, en} from 'vuejs-datepicker/dist/locale'
 import moment from 'moment'
@@ -52,6 +79,7 @@ export default {
     return {
       obj_selecionado: 'Selecione um Item',
       res_localizar: [],
+      res_user: [],
       nome_localizar: '',
       obj_Reserva: {
         _id: '',
@@ -83,8 +111,13 @@ export default {
     localizar (nome) {
       console.log(nome)
       Resource.listar(nome).then(resposta => {
-        console.log(resposta.data)
         this.res_localizar = resposta.data
+      }).catch(function (error) {
+        console.log(error)
+        alert('Registro não encontrado')
+      })
+      User.listar(nome).then(resposta => {
+        this.res_user = resposta.data
       }).catch(function (error) {
         console.log(error)
         alert('Registro não encontrado')
@@ -104,7 +137,6 @@ export default {
         location.reload()
       } else {
         Resource.reservar(objReserva).then(resposta => {
-          console.log(resposta.data)
           alert('Recurso reservado com sucesso!')
           location.reload()
         }).catch(function (error) {
