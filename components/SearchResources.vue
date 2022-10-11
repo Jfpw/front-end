@@ -20,17 +20,12 @@
                 <tr>
                   <th>ID</th>
                   <th>Nº Patrimônio</th>
-                  <th>Nome</th>
-                  <th>Quantidade</th>
-                  <th class="actions">Ações</th>
                 </tr>
               </thead>
-              <tbody v-for="(res, i) in res_localizar" :key="res.id" v-if="res_localizar">
+              <tbody v-for="(res) in res_localizar.datashows" :key="res.id" v-if="res_localizar">
                 <tr>
-                  <td>{{i+1}}</td>
-                  <td>{{res.patrimonio}}</td>
-                  <td>{{res.nome}}</td>
-                  <td>{{res.quantidade}}</td>
+                  <td>{{res.pk}}</td>
+                  <td>{{res.identify}}</td>
                   <td class="actions">
                     <button type="button" style="width: 75px;" class="btn btn-success btn-sm" @click="openModal(res)">Ver Mais</button>
                     <button type="button" style="width: 75px;" class="btn btn-info btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg-editar" @click="openModal(res)">Editar</button>

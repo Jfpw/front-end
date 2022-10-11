@@ -24,14 +24,14 @@
                   <th class="actions">Ações</th>
                 </tr>
               </thead>
-              <tbody v-for="(res, i) in res_localizar.teachers" :key="res.id" v-if="res_localizar">
+              <tbody v-for="(res) in res_localizar.teachers" :key="res.id" v-if="res_localizar">
                 <tr>
                   <td>{{res.pk}}</td>
                   <td>{{res.name}}</td>
                   <td>{{res.email}}</td>
                   <td class="actions">
-                  <form @submit.prevent="excluir(res._id)">
-                    <input type="hidden" v-model="res._id" >
+                  <form @submit.prevent="excluir(res.pk)">
+                    <input type="hidden" v-model="res.pk" >
                     <button type="button" style="width: 75px;" class="btn btn-success btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg-ver-mais" @click="openModal(res)">Ver Mais</button>
                     <button type="button" style="width: 75px;" class="btn btn-info btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg-editar" @click="openModal(res)">Editar</button>
                     <button type="submit" style="width: 75px;" class="btn btn-danger btn-sm" >Excluir</button>
@@ -55,10 +55,10 @@
           <div class="modal-body">
             <form @submit.prevent="editar (modalData)">
               <label>Nome: </label>
-              <input type="text" v-model="modalData.nome" value='' id="inputNome" class="form-control"  pattern="[a-zA-Z \s]+$" title="Insira apenas caracteres não numéricos e não especiais" required autofocus>
+              <input type="text" v-model="modalData.name" value='' id="inputNome" class="form-control"  pattern="[a-zA-Z \s]+$" title="Insira apenas caracteres não numéricos e não especiais" required autofocus>
               <label>Email:</label>
               <input type="email" v-model="modalData.email" id="inputEmail" class="form-control"  required autofocus>
-              <label>Departamento</label>
+              <!--<label>Departamento</label>
               <input type="text" v-model="modalData.departamento" id="inputDepartamento" class="form-control"  pattern="[a-zA-Z \s]+$" title="Insira apenas caracteres não numéricos e não especiais"  required autofocus>
               <div class="row">
                   <div class="col-md-6">
@@ -67,7 +67,7 @@
                       <br>
                   </div>
                   <div class="col-md-6"></div>
-              </div>
+              </div>-->
                 <div class="modal-footer">
                   <button class="btn btn-primary" type="submit">Salvar alterações</button>
               </div>
@@ -141,9 +141,9 @@ export default {
       })
     },
     localizar (nome) {
-      console.log('1', this.res_localizar)
+      console.log(this.res_localizar)
       User.listar(nome).then(resposta => {
-        console.log('2',resposta.data)
+        console.log(resposta.data)
         this.res_localizar = resposta.data
         console.log(this.res_localizar)
       }).catch(function (error) {

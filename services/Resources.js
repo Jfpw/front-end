@@ -2,10 +2,11 @@ import { http } from './config'
 
 export default {
   listar: (nome) => {
-    return http.get('recursos' + '/' + nome)
+    return http.get('datashows')
   },
   salvar: (recurso) => {
-    return http.post('recursos', recurso)
+    console.log('datashow', recurso)
+    return http.post('datashows', recurso)
   },
   editar: (recurso) => {
     return http.put('recursos', recurso)

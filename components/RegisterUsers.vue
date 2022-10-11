@@ -24,7 +24,8 @@ export default {
   },
   methods: {
     salvar () {
-      if (true) {
+      const n = 1
+      if (n) {
         User.salvar(this.obj_User).then(resposta => {
           console.log(resposta.data)
           alert('Cadastro efetuado com sucesso!')

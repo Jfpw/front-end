@@ -6,17 +6,12 @@ export default {
   },
   salvar: (user) => {
     console.log('user', user)
-
-    // data = {
-    //   'name': user,
-    //   'email': email
-    // }
     return http.post('professores', user)
   },
   excluir: (id) => {
-    return http.delete('usuarios', id)
+    return http.delete('professor' + '/' + id)
   },
-  editar: (user) => {
-    return http.put('usuarios', user)
+  editar: (data) => {
+    return http.put('professor' + '/' + data.pk, data)
   }
 }
