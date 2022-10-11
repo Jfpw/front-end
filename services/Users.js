@@ -5,7 +5,13 @@ export default {
     return http.get('professores')
   },
   salvar: (user) => {
-    return http.post('usuarios', user)
+    console.log('user', user)
+
+    // data = {
+    //   'name': user,
+    //   'email': email
+    // }
+    return http.post('professores', user)
   },
   excluir: (id) => {
     return http.delete('usuarios', id)
